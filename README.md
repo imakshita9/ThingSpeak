@@ -1,2 +1,2 @@
 # ThingSpeak
-[Dashboard](https://thingspeak.com/channels/2536863/private_show)
+Here you can see the [output](https://thingspeak.com/channels/2536863)!
