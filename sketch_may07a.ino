@@ -3,9 +3,9 @@
 #include "ThingSpeak.h" // always include thingspeak header file after other header files and custom macros
 //mac address of my esp32 :0C:B8:15:D7:C4:28
 
-char ssid[] = SECRET_SSID;   // your network SSID (name) 
-char pass[] = SECRET_PASS;   // your network password
-int keyIndex = 0;            // your network key Index number (needed only for WEP)
+char ssid[] = SECRET_SSID;    
+char pass[] = SECRET_PASS;   
+int keyIndex = 0;            
 WiFiClient  client;
 
 unsigned long myChannelNumber = SECRET_CH_ID;
@@ -21,7 +21,7 @@ String myStatus = "";
 void setup() {
   Serial.begin(115200);  //Initialize serial
   while (!Serial) {
-    ; // wait for serial port to connect. Needed for Leonardo native USB port only
+    ; // wait for serial port to connect
   }
   
   WiFi.mode(WIFI_STA);   
@@ -35,7 +35,7 @@ void loop() {
     Serial.print("Attempting to connect to SSID: ");
     Serial.println(SECRET_SSID);
     while(WiFi.status() != WL_CONNECTED){
-      WiFi.begin(ssid, pass);  // Connect to WPA/WPA2 network. Change this line if using open or WEP network
+      WiFi.begin(ssid, pass);  // Connect to WPA/WPA2 network
       Serial.print(".");
       delay(5000);     
     } 
@@ -46,21 +46,7 @@ void loop() {
   ThingSpeak.setField(1, number1);
   ThingSpeak.setField(2, number2);
   ThingSpeak.setField(3, number3);
-   ThingSpeak.setField(4, number4);
-
-  // figure out the status message
-  if(number1 > number2){
-    myStatus = String("field1 is greater than field2"); 
-  }
-  else if(number1 < number2){
-    myStatus = String("field1 is less than field2");
-  }
-  else{
-    myStatus = String("field1 equals field2");
-  }
-  
-  // set the status
-  ThingSpeak.setStatus(myStatus);
+  ThingSpeak.setField(4, number4);
   
   // write to the ThingSpeak 
   int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
